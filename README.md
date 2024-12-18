@@ -9,6 +9,7 @@ Simple app to add animation base on scrolling.
 ## Solution
 - Optimized the assets to use to improve loading time
 - Configure priority loading for the video
+- Choose video base on window size
 - Implement a event listener to detect when the user scrolls
 - Control video playback based on scroll position
 - Animate text based on scroll position
