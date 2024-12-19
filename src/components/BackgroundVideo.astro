@@ -4,7 +4,6 @@
 
 <div id="container">
 	<video id="background-video" class="background-video" muted preload="auto">
-		<source src="/videos/earth-desktop-1920x1080.mp4" type="video/mp4" />
 	</video>
 	<!-- Overlay -->
 	<div
@@ -14,25 +13,59 @@
 </div>
 
 <script>
+	const videosURL = {
+		desktop: "/videos/earth-desktop-1920x1080.mp4",
+		mobile: "/videos/earth-mobile-1080x1920.mp4",
+	}
+	const screenSize = window.matchMedia("(min-width: 768px)");
 	const videoTag = document.getElementById(
 		"background-video",
 	) as HTMLVideoElement;
+	const sourceTag = document.createElement("source");
+	
+	sourceTag.id = "background-video-source";
+	sourceTag.setAttribute("type", "video/mp4");
+	videoTag.appendChild(sourceTag);
+	setVideoSource(screenSize.matches, videosURL.desktop, videosURL.mobile);
 
+	// Play video for 3 seconds
 	if (videoTag) {
-		// Play video for 3 seconds
 		videoTag.play();
 		setTimeout(() => {
 			videoTag.pause();
-			window.addEventListener("scroll", () => {
-				videoTag.pause();
-				const updateVideo = () => {
-					videoTag.currentTime = (window.scrollY / 200) + 3;
-					requestAnimationFrame(updateVideo);
-				};
-				requestAnimationFrame(updateVideo);
-			});
+			handleScroll();
 		}, 3000);
 	}
+
+	// Add event listener to pause video when user scrolls
+	function handleScroll() {
+		window.addEventListener("scroll", () => {
+			videoTag.pause();
+			const updateVideo = () => {
+				videoTag.currentTime = window.scrollY / 200 + 3;
+				requestAnimationFrame(updateVideo);
+			};
+			requestAnimationFrame(updateVideo);
+		});
+	}
+
+	function setVideoSource(sizeMatch:boolean, srcVideoDesktop: string, srcVideoMobile: string) {
+		let srcVideo: string;
+		if (sizeMatch) {
+			srcVideo = srcVideoDesktop;
+		} else {
+			srcVideo = srcVideoMobile;
+		}
+		videoTag.pause();
+		sourceTag.removeAttribute("src");
+		sourceTag.setAttribute("src", srcVideo);
+		videoTag.load();
+	}
+
+	window.addEventListener("resize", () => {
+		const screenSize = window.matchMedia("(min-width: 768px)");
+		setVideoSource(screenSize.matches, videosURL.desktop, videosURL.mobile);
+	});
 </script>
 
 <style>
