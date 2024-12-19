@@ -1,0 +1,82 @@
+---
+import ArrowIcon from "./svgs/ArrowIcon.astro";
+---
+
+<div id="scroll-top" class="fixed bottom-3 z-10 cursor-pointer w-full">
+    <div class="flex items-center justify-center">
+        <ArrowIcon />
+    </div>
+</div>
+
+<script>
+    const scrollTop = document.getElementById("scroll-top");
+    window.addEventListener("scroll", () => {
+        // Detect if scrolled to very bottom
+        if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+            scrollTop?.classList.add("turn-180-up");
+            scrollTop?.classList.remove("turn-180-down");
+        } else {
+            if (window.scrollY === 0) {
+                scrollTop?.classList.remove("turn-180-up");
+                scrollTop?.classList.add("turn-180-down");
+            }
+        }
+    });
+
+    scrollTop?.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    });
+</script>
+
+<style>
+    .turn-180-up {
+        animation:
+            turnUp 0.5s linear forwards,
+            pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .turn-180-down {
+        animation:
+            turnDown 0.5s linear forwards,
+            pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes turnUp {
+        0% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(45deg);
+        }
+        50% {
+            transform: rotate(90deg);
+        }
+        75% {
+            transform: rotate(135deg);
+        }
+        100% {
+            transform: rotate(180deg);
+        }
+    }
+
+    @keyframes turnDown {
+        0% {
+            transform: rotate(180deg);
+        }
+        25% {
+            transform: rotate(135deg);
+        }
+        50% {
+            transform: rotate(90deg);
+        }
+        75% {
+            transform: rotate(45deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+</style>
