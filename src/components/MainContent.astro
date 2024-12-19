@@ -1,0 +1,98 @@
+---
+import Text1 from "./svgs/Text1.astro";
+import Text2 from "./svgs/Text2.astro";
+import Text3 from "./svgs/Text3.astro";
+import Text4 from "./svgs/Text4.astro";
+import Text5 from "./svgs/Text5.astro";
+import Text6 from "./svgs/Text6.astro";
+import Text7 from "./svgs/Text7.astro";
+---
+
+<main class="w-full">
+    <div class="screen-content">
+        <div class="content-text-1">
+            <div class="flex flex-col items-center justify-center gap-5">
+                <Text1 />
+                <Text2 />
+            </div>
+            <Text3 />
+            <img src="/logos.png" alt="logos" class="max-h-10" />
+        </div>
+    </div>
+
+    <div class="screen-content">
+        <div class="content-text-2">
+            <Text4 />
+        </div>
+    </div>
+    <div class="screen-content">
+        <div class="content-text-3">
+            <Text5 />
+            <Text6 />
+            <Text7 />
+        </div>
+    </div>
+</main>
+
+<style>
+    .screen-content {
+        @apply w-full gap-14 relative h-[134vh] flex flex-col items-center justify-center;
+        view-timeline-name: --title;
+    }
+    .content-text-1 {
+        @apply sticky top-1/2 z-10 inset-0 flex flex-col items-center justify-center gap-10 -translate-y-1/2 scale-[0.60] md:scale-100;
+
+        animation: fade-in-out linear;
+        animation-timeline: --title;
+        animation-range: entry 20% exit 80%;
+        animation-fill-mode: both;
+    }
+    .content-text-2 {
+        @apply sticky top-1/2 z-10 inset-0 flex flex-col items-center justify-center gap-10 -translate-y-1/2 scale-[0.60] md:scale-100;
+
+        animation: fade-in-out linear;
+        animation-timeline: --title;
+        animation-range: entry 50% exit 100%;
+        animation-fill-mode: both;
+        opacity: 0;
+    }
+    .content-text-3 {
+        @apply sticky top-1/2 z-10 inset-0 flex flex-col items-center justify-center gap-10 -translate-y-1/2 scale-[0.60] md:scale-100;
+
+        animation: fade-in-out linear;
+        animation-timeline: --title;
+        animation-range: entry 50% exit 100%;
+        animation-fill-mode: both;
+        opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+        .content-text-1 {
+            animation-range: entry 18% exit 80%;
+        }
+        .content-text-2 {
+            animation-range: entry 60% exit 90%;
+        }
+        .content-text-3 {
+            animation-range: entry 50% exit 80%;
+        }   
+    }
+
+    @keyframes fade-in-out {
+        0% {
+            opacity: 0;
+        }
+        25% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        75% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+</style>
